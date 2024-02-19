@@ -7,7 +7,7 @@ We draw all the results of state-of-the-art methods in the figure and the figure
 For annotation file, only json format is supported.
 For result files, json and txt formats are supported. (multiple `--rstFiles` are supported)
 
-Run Example (shell)
+_Run Example_
 ```bash
 $ python evaluation_script.py \
     --annFile ./KAIST_annotation.json \
