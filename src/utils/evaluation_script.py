@@ -21,8 +21,12 @@ import traceback
 import pathlib
 import matplotlib.pyplot as plt
 
-from coco import COCO
-from cocoeval import COCOeval, Params
+try:
+    from coco import COCO
+    from cocoeval import COCOeval, Params
+except:
+    from .coco import COCO
+    from .cocoeval import COCOeval, Params
 
 font = {'size': 22}
 matplotlib.rc('font', **font)
