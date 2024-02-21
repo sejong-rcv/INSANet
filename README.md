@@ -9,8 +9,8 @@
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/insanet-intra-inter-spectral-attention/pedestrian-detection-on-llvip)](https://paperswithcode.com/sota/pedestrian-detection-on-llvip?p=insanet-intra-inter-spectral-attention)
 
 
-<p align="center"><img src="fig/Architecture.png" width="900"></p>
-<p align="center"><img src="fig/INSA.png" width="700"></p>
+<p align="center"><img src="fig/architecture.png" width="900"></p>
+<p align="center"><img src="fig/insa.png" width="700"></p>
 
 > **PDF**: [INSANet: INtra-INter Spectral Attention Network for Effective Feature Fusion of Multispectral Pedestrian Detection](https://www.mdpi.com/1424-8220/24/4/1168/pdf)
 
