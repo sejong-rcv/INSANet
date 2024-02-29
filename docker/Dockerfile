@@ -1,6 +1,8 @@
 FROM nvidia/cuda:11.3.0-cudnn8-devel-ubuntu20.04
 LABEL maintainer "Sangin Lee <silee@rcv.sejong.ac.kr>"
 
+ARG DEVIAN_FRONTEND=noninteractive
+
 ENV LANG C.UTF-8
 
 ARG PYTHON_VERSION=
