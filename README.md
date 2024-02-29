@@ -125,6 +125,7 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
   - First, you should download the dataset. Please see download_dataset.md in [LLVIP](https://github.com/bupt-ai-cz/LLVIP).
   - A pair of visible and infrared images share the same annotation with the same file name.
   - The annotations are in VOC format and we evaluate in annotations that have been modified to COCO format.
+  - **We also provide source code for train and evaluate for the LLVIP dataset. Please set the appropriate path.**
 ```
 ├── data
    └── LLVIP
@@ -146,5 +147,14 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
             ├── ...
             └── 260536.jpg
       └── visible
-         └── The structure is identical to the "infrared".
+         └─ The structure is identical to the "infrared".
+├── llvip
+   ├── LLVIP_annotations.json # COCO format annotation for evaluation.
+   ├── LLVIP_train_all.txt    # Same as KAIST,
+   ├── LLVIP_test_all.txt     # We classify and provide text files for train and test.
+   └── src
+      ├── config.py
+      ├── datasets.py
+      ├── train_eval.py
+      └── inference.py
 ```
