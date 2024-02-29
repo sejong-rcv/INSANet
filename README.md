@@ -1,7 +1,7 @@
 # INSANet: INtra-INter Spectral Attention Network for Effective Feature Fusion of Multispectral Pedestrian Detection
 
 ### Official Pytorch Implementation of [INSANet: INtra-INter Spectral Attention Network for Effective Feature Fusion of Multispectral Pedestrian Detection](https://www.mdpi.com/1424-8220/24/4/1168)
-#### Authors: [Sangin Lee](https://sites.google.com/rcv.sejong.ac.kr/silee/%ED%99%88), [Taejoo Kim](https://sites.google.com/view/xown3197), [Jeongmin Shin](https://sites.google.com/view/jeongminshin), [Namil Kim](https://scholar.google.com/citations?user=IYyLBQYAAAAJ&hl=ko&oi=sra), and [Yukyung Choi](https://scholar.google.com/citations?user=vMrPtrAAAAAJ&hl=ko&oi=sra)
+#### Authors: [Sangin Lee](https://sites.google.com/rcv.sejong.ac.kr/silee/%ED%99%88), [Taejoo Kim](https://sites.google.com/view/xown3197), [Jeongmin Shin](https://sites.google.com/view/jeongminshin), [Namil Kim](https://scholar.google.com/citations?user=IYyLBQYAAAAJ&hl=ko&oi=sra), [Yukyung Choi](https://scholar.google.com/citations?user=vMrPtrAAAAAJ&hl=ko&oi=sra)
 
 #### 📢Notice : Multispectral Pedestrian Detection Challenge Leaderboard is available.
  [![Leaderboard](https://img.shields.io/badge/Leaderboard-Multispectral%20Pedestrian%20Detection-blue)](https://eval.ai/web/challenges/challenge-page/1247/leaderboard/3137)
@@ -239,6 +239,143 @@ python evaluation_script.py \
 ```
 
 <p align="center"><img src="evaluation/KAIST_BENCHMARK.jpg"></p>
+
+---
+
+## Experiments
+
+#### KAIST
+Note that &dagger; is the re-implemented performance with the proposed fusion method (other settings, such as the backbone and the training parameters, follow our approach). 
+
+<table>
+ <tr>
+  <th rowspan="2"> Method </th>
+  <th colspan="6"> Miss-Rate (%)</th>
+ </tr>
+ <tr>
+  <th> ALL </th>
+  <th> DAY </th>
+  <th> NIGHT </th>
+  <th> <i>Campus</i> </th>
+  <th> <i>Road</i> </th>
+  <th> <i>Downtown</i> </th>
+ </tr>
+ <tr>
+  <td align="center"> ACF </td>
+  <td align="center"> 47.32 </td>
+  <td align="center"> 42.57 </td>
+  <td align="center"> 56.17 </td>
+  <td align="center"> 16.50 </td>
+  <td align="center"> 6.68 </td>
+  <td align="center"> 18.45 </td>
+ </tr>
+ <tr>
+  <td align="center"> Halfway Fusion </td>
+  <td align="center"> 25.75 </td>
+  <td align="center"> 24.88 </td>
+  <td align="center"> 26.59 </td>
+  <td align="center"> - </td>
+  <td align="center"> - </td>
+  <td align="center"> - </td>
+ </tr>
+ <tr>
+  <td align="center"> MSDS-RCNN </td>
+  <td align="center"> 11.34 </td>
+  <td align="center"> 10.53 </td>
+  <td align="center"> 12.94 </td>
+  <td align="center"> 11.26 </td>
+  <td align="center"> 3.60 </td>
+  <td align="center"> 14.80 </td>
+ </tr>
+ <tr>
+  <td align="center"> AR-CNN </td>
+  <td align="center"> 9.34 </td>
+  <td align="center"> 9.94 </td>
+  <td align="center"> 8.38 </td>
+  <td align="center"> 11.73 </td>
+  <td align="center"> 3.38 </td>
+  <td align="center"> 11.73 </td>
+ </tr>
+  <td align="center"> Halfway Fusion&dagger; </td>
+  <td align="center"> 8.31 </td>
+  <td align="center"> 8.36 </td>
+  <td align="center"> 8.27 </td>
+  <td align="center"> 10.80 </td>
+  <td align="center"> 3.74 </td>
+  <td align="center"> 11.00 </td>
+ <tr>
+  <td align="center"> MBNet </td>
+  <td align="center"> 8.31 </td>
+  <td align="center"> 8.36 </td>
+  <td align="center"> 8.27 </td>
+  <td align="center"> 10.80 </td>
+  <td align="center"> 3.74 </td>
+  <td align="center"> 11.00 </td>
+ </tr>
+ <tr>
+  <td align="center"> MLPD </td>
+  <td align="center"> 7.58 </td>
+  <td align="center"> 7.95 </td>
+  <td align="center"> 6.95 </td>
+  <td align="center"> 9.21 </td>
+  <td align="center"> 5.04 </td>
+  <td align="center"> 9.32 </td>
+ </tr>
+ <tr>
+  <td align="center"> ICAFusion </td>
+  <td align="center"> 7.17 </td>
+  <td align="center"> 6.82 </td>
+  <td align="center"> 7.85 </td>
+  <td align="center"> - </td>
+  <td align="center"> - </td>
+  <td align="center"> - </td>
+ </tr>
+ <tr>
+  <td align="center"> CFT&dagger; </td>
+  <td align="center"> 6.75 </td>
+  <td align="center"> 7.76 </td>
+  <td align="center"> 4.59 </td>
+  <td align="center"> 9.45 </td>
+  <td align="center"> 3.47 </td>
+  <td align="center"> 8.72 </td>
+ </tr>
+ <tr>
+  <td align="center"> GAFF </td>
+  <td align="center"> 6.48 </td>
+  <td align="center"> 8.35 </td>
+  <td align="center"> 3.46 </td>
+  <td align="center"> 7.95 </td>
+  <td align="center"> 3.70 </td>
+  <td align="center"> 8.35 </td>
+ </tr>
+ <tr>
+  <td align="center"> GAFF </td>
+  <td align="center"> 5.96 </td>
+  <td align="center"> 7.77 </td>
+  <th> 2.4 </th>
+  <th> 7.45 </th>
+  <td align="center"> 4.10 </td>
+  <td align="center"> 7.25 </td>
+ </tr>
+ <tr>
+  <th> Ours<sub>(w/o shift)</sub> </th>
+  <td align="center"> 6.12 </td>
+  <td align="center"> 7.19 </td>
+  <td align="center"> 4.37 </td>
+  <td align="center"> 9.05 </td>
+  <td align="center"> 3.24 </td>
+  <td align="center"> 7.25 </td>
+ </tr>
+ <tr>
+  <th> Ours<sub>(w/ shift)</sub> </th>
+  <th> 5.50 </th>
+  <th> 6.29 </th>
+  <td align="center"> 4.20 </td>
+  <td align="center"> 7.64 </td>
+  <th> 3.06 </th>
+  <th> 6.72 </th>
+ </tr>
+</table>
 
 ---
 
