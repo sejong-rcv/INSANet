@@ -47,7 +47,7 @@ def val_epoch(model: INSANet, dataloader: DataLoader, input_size: Tuple, min_sco
             # Forward prop.
             predicted_locs, predicted_scores = model(image_vis, image_lwir)
             
-            # Detect objects in SSD output
+            # Detect objects in model output
             detections = model.module.detect_objects(predicted_locs, predicted_scores,
                                                      min_score=min_score, max_overlap=0.425, top_k=200)
             
