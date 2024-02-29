@@ -7,5 +7,7 @@ matplotlib==3.5.3
 opencv-python==4.8.0.74
 opencv-python-headless==4.8.0.74
 easydict==1.10
+tqdm==4.65.0
+tensorboard
+gdown
 wandb
-tqdm
