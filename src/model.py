@@ -7,14 +7,13 @@ from torch import nn
 import torch.nn.functional as F
 import torchvision
 
-from transformer import *
-
+from insa import *
 from utils.utils import *
 
-# Note that order of the arguments (nn.MaxPool2d)
 warnings.filterwarnings(action='ignore')
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 
 class VGGBase(nn.Module):
     """
@@ -121,6 +120,7 @@ class VGGBase(nn.Module):
         self.conv1x1_lwir.weight.data.normal_(0, 0.01)
         self.conv1x1_lwir.bias.data.fill_(0.01)   
         
+        self.weight = 0.5
         self.rescale_factors = nn.Parameter(torch.FloatTensor(1, 512, 1, 1))  
         nn.init.constant_(self.rescale_factors, 20)
 
@@ -128,13 +128,11 @@ class VGGBase(nn.Module):
         self.load_pretrained_layers()
 
         # INtra-INter Attention (INSA) module
-        self.swin = FeatureTransformer(num_layers=2,
-                                       d_model=256,
-                                       nhead=1,
-                                       attention_type='swin',
-                                       ffn_dim_expansion=4,
-                                       )
-
+        self.insa = INSA(n_iter=2,
+                         dim=256,
+                         n_head=1,
+                         ffn_dim=4)
+        
 
     def forward(self, image_vis, image_lwir):
         """
@@ -143,7 +141,6 @@ class VGGBase(nn.Module):
         :param image: images, a tensor of dimensions (N, 3, 300, 300)
         :return: lower-level feature maps conv4_3 and conv7
         """
- 
         # RGB
         out_vis = F.relu(self.conv1_1_bn_vis(self.conv1_1_vis(image_vis)))  
         out_vis = F.relu(self.conv1_2_bn_vis(self.conv1_2_vis(out_vis))) 
@@ -174,8 +171,10 @@ class VGGBase(nn.Module):
         out_vis = F.relu(self.conv1x1_vis(out_vis))
         out_lwir = F.relu(self.conv1x1_lwir(out_lwir))
 
-        out_vis, out_lwir = self.swin(out_vis, out_lwir, attn_num_splits=16)
-        out = out_vis * 0.5 + out_lwir * 0.5
+        out_vis, out_lwir = self.insa(out_vis, out_lwir)
+        
+        # Weighted summation
+        out = torch.add(out_vis * self.weight, out_lwir * (1 - self.weight))
         
         # weight-sharing network
         out = self.pool3(out)
