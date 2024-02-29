@@ -113,14 +113,14 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
                   ├── I00019.txt
                   ├── ...
       ├── images
-         ├─ The structure is identical to the "annotations_paired", but
-         └─ files are altered from text(.txt) to image(.jpg).
+         ├─ The structure is identical to the "annotations_paired" folder:
+         └─ A pair of images has its own train annotations with the same file name.
 
 ├── src
    ├── kaist_annotations_test20.json
    ├── imageSets
-      ├── train-all-02.txt
-      └── test-all-20.txt
+      ├── train-all-02.txt # List of file names for train.
+      └── test-all-20.txt 
 ```
 
 ### LLVIP
