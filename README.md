@@ -1,9 +1,9 @@
 # INSANet: INtra-INter Spectral Attention Network for Effective Feature Fusion of Multispectral Pedestrian Detection
 
-### Official Pytorch Implementation of [INSANet: INtra-INter Spectral Attention Network for Effective Feature Fusion of Multispectral Pedestrian Detection](https://www.mdpi.com/1424-8220/24/4/1168)
+## Official Pytorch Implementation of [INSANet: INtra-INter Spectral Attention Network for Effective Feature Fusion of Multispectral Pedestrian Detection](https://www.mdpi.com/1424-8220/24/4/1168)
 #### Authors: [Sangin Lee](https://sites.google.com/rcv.sejong.ac.kr/silee/%ED%99%88), [Taejoo Kim](https://sites.google.com/view/xown3197), [Jeongmin Shin](https://sites.google.com/view/jeongminshin), [Namil Kim](https://scholar.google.com/citations?user=IYyLBQYAAAAJ&hl=ko&oi=sra), [Yukyung Choi](https://scholar.google.com/citations?user=vMrPtrAAAAAJ&hl=ko&oi=sra)
 
-#### 📢Notice : Multispectral Pedestrian Detection Challenge Leaderboard is available.
+##### 📢Notice : Multispectral Pedestrian Detection Challenge Leaderboard is available.
  [![Leaderboard](https://img.shields.io/badge/Leaderboard-Multispectral%20Pedestrian%20Detection-blue)](https://eval.ai/web/challenges/challenge-page/1247/leaderboard/3137)
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/insanet-intra-inter-spectral-attention/multispectral-object-detection-on-kaist)](https://paperswithcode.com/sota/multispectral-object-detection-on-kaist?p=insanet-intra-inter-spectral-attention)
@@ -22,7 +22,7 @@ Pedestrian detection is a critical task for safety-critical systems, but detecti
 
 ## Usage
 
-### Recommended Environment
+## Recommended Environment
 - OS: Ubuntu 20.04
 - CUDA-cuDNN: 11.3.0-8
 - GPU: NVIDIA-A100
@@ -30,19 +30,19 @@ Pedestrian detection is a critical task for safety-critical systems, but detecti
   
 See [environment.yaml](https://github.com/sejong-rcv/INSANet/blob/main/environment.yaml) for more details
 
-### Installation
+## Installation
 The environment file has all the dependencies that are needed for INSANet.
 
 We offer guides on how to install dependencies via docker and conda.
 
 First, clone the repository:
-#### Git Clone
+### Git Clone
 ```
 git clone https://github.com/sejong-rcv/INSANet.git
 cd INSANet
 ```
 
-#### 1. Docker
+### 1. Docker
 - **Prerequisite**
   - [nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-container-toolkit)
   - Note that nvidia-cuda:11.3.0 is deprecated. See [issue](https://github.com/NVIDIA/nvidia-docker/issues/1745).
@@ -56,7 +56,7 @@ make docker-make
 nvidia-docker run -it --name insanet -v $PWD:/workspace -p 8888:8888 -e NVIDIA_VISIBLE_DEVICES=all --shm-size=32G insanet:maintainer /bin/bash
 ```
 
-#### 2. Conda
+### 2. Conda
 - **Prerequisite**
   - Required dependencies are listed in environment.yaml.
 ```
@@ -79,7 +79,7 @@ The datasets used to train and evaluate model are as follows:
 
 The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/src/datasets.py) assumes that the dataset is located in the data folder and structured as follows:
 
-#### KAIST
+### KAIST
 - First, you should download the dataset. we provide the script to download the dataset (please see data/download_kaist).
 - Train: We use paired annotations provided in [AR-CNN](https://github.com/luzhang16/AR-CNN).
 - Evaluation:  We use sanitized (improved) annotations provided in [MSDS-RCNN](https://github.com/Li-Chengyang/MSDS-RCNN).
@@ -123,7 +123,7 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
       └── test-all-20.txt
 ```
 
-#### LLVIP
+### LLVIP
 - First, you should download the dataset. Please see download_dataset.md in [LLVIP](https://github.com/bupt-ai-cz/LLVIP).
 - A pair of visible and infrared images share the same annotation with the same file name.
 - The annotations are in VOC format and we evaluate in annotations that have been modified to COCO format.
@@ -244,13 +244,13 @@ python evaluation_script.py \
 
 ## Experiments
 
-#### KAIST
 Note that &dagger; is the re-implemented performance with the proposed fusion method (other settings, such as the backbone and the training parameters, follow our approach). 
 
+### KAIST
 <table>
  <tr>
   <th rowspan="2"> Method </th>
-  <th colspan="6"> Miss-Rate (%)</th>
+  <th colspan="6"> Miss-Rate (%) </th>
  </tr>
  <tr>
   <th> ALL </th>
@@ -261,7 +261,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <th> <i>Downtown</i> </th>
  </tr>
  <tr>
-  <td align="center"> ACF </td>
+  <td> ACF </td>
   <td align="center"> 47.32 </td>
   <td align="center"> 42.57 </td>
   <td align="center"> 56.17 </td>
@@ -270,7 +270,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 18.45 </td>
  </tr>
  <tr>
-  <td align="center"> Halfway Fusion </td>
+  <td> Halfway Fusion </td>
   <td align="center"> 25.75 </td>
   <td align="center"> 24.88 </td>
   <td align="center"> 26.59 </td>
@@ -279,7 +279,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> - </td>
  </tr>
  <tr>
-  <td align="center"> MSDS-RCNN </td>
+  <td> MSDS-RCNN </td>
   <td align="center"> 11.34 </td>
   <td align="center"> 10.53 </td>
   <td align="center"> 12.94 </td>
@@ -288,7 +288,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 14.80 </td>
  </tr>
  <tr>
-  <td align="center"> AR-CNN </td>
+  <td> AR-CNN </td>
   <td align="center"> 9.34 </td>
   <td align="center"> 9.94 </td>
   <td align="center"> 8.38 </td>
@@ -296,7 +296,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 3.38 </td>
   <td align="center"> 11.73 </td>
  </tr>
-  <td align="center"> Halfway Fusion&dagger; </td>
+  <td> Halfway Fusion&dagger; </td>
   <td align="center"> 8.31 </td>
   <td align="center"> 8.36 </td>
   <td align="center"> 8.27 </td>
@@ -304,7 +304,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 3.74 </td>
   <td align="center"> 11.00 </td>
  <tr>
-  <td align="center"> MBNet </td>
+  <td> MBNet </td>
   <td align="center"> 8.31 </td>
   <td align="center"> 8.36 </td>
   <td align="center"> 8.27 </td>
@@ -313,7 +313,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 11.00 </td>
  </tr>
  <tr>
-  <td align="center"> MLPD </td>
+  <td> MLPD </td>
   <td align="center"> 7.58 </td>
   <td align="center"> 7.95 </td>
   <td align="center"> 6.95 </td>
@@ -322,7 +322,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 9.32 </td>
  </tr>
  <tr>
-  <td align="center"> ICAFusion </td>
+  <td> ICAFusion </td>
   <td align="center"> 7.17 </td>
   <td align="center"> 6.82 </td>
   <td align="center"> 7.85 </td>
@@ -331,7 +331,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> - </td>
  </tr>
  <tr>
-  <td align="center"> CFT&dagger; </td>
+  <td> CFT&dagger; </td>
   <td align="center"> 6.75 </td>
   <td align="center"> 7.76 </td>
   <td align="center"> 4.59 </td>
@@ -340,7 +340,7 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 8.72 </td>
  </tr>
  <tr>
-  <td align="center"> GAFF </td>
+  <td> GAFF </td>
   <td align="center"> 6.48 </td>
   <td align="center"> 8.35 </td>
   <td align="center"> 3.46 </td>
@@ -349,16 +349,16 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 8.35 </td>
  </tr>
  <tr>
-  <td align="center"> GAFF </td>
+  <td> CFR </td>
   <td align="center"> 5.96 </td>
   <td align="center"> 7.77 </td>
-  <th> 2.4 </th>
+  <th> 2.40 </th>
   <th> 7.45 </th>
   <td align="center"> 4.10 </td>
   <td align="center"> 7.25 </td>
  </tr>
  <tr>
-  <th> Ours<sub>(w/o shift)</sub> </th>
+  <td> <b>Ours<sub>(w/o shift)</sub></b> </td>
   <td align="center"> 6.12 </td>
   <td align="center"> 7.19 </td>
   <td align="center"> 4.37 </td>
@@ -367,13 +367,67 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <td align="center"> 7.25 </td>
  </tr>
  <tr>
-  <th> Ours<sub>(w/ shift)</sub> </th>
+  <td> <b>Ours<sub>(w/ shift)</sub></b> </td>
   <th> 5.50 </th>
   <th> 6.29 </th>
   <td align="center"> 4.20 </td>
   <td align="center"> 7.64 </td>
   <th> 3.06 </th>
   <th> 6.72 </th>
+ </tr>
+</table>
+  
+### LLVIP
+<table>
+ <tr>
+  <th> Method </th>
+  <th> Spectral </th>
+  <th> Miss-Rate (%) </th>
+ </tr>
+ <tr>
+  <td rowspan="2"> Yolov3 </td>
+  <td align="center"> visible </td>
+  <td align="center"> 37.70 </td>
+ </tr>
+ <tr>
+  <td align="center"> infrared </td>
+  <td align="center"> 19.73 </td>
+ </tr>
+ <tr>
+  <td rowspan="2"> Yolov5 </td>
+  <td align="center"> visible </td>
+  <td align="center"> 22.59 </td>
+ </tr>
+ <tr>
+  <td align="center"> infrared </td>
+  <td align="center"> 10.66 </td>
+ </tr>
+ <tr>
+  <td rowspan="2"> FBCNet </td>
+  <td align="center"> visible </td>
+  <td align="center"> 19.78 </td>
+ </tr>
+ <tr>
+  <td align="center"> infrared </td>
+  <td align="center"> 7.98 </td>
+ </tr>
+ <tr>
+  <td> MLPD </td>
+  <td rowspan="2" align="center"> multi </td>
+  <td align="center"> 6.01 </td>
+ </tr>
+ <tr>
+  <td> CFT </td>
+  <td align="center"> 5.40 </td>
+ </tr>
+ <tr>
+  <td> <b>Ours<sub>(w/o shift)</sub></b> </td>
+  <td rowspan="2" align="center"> multi </td>
+  <td align="center"> 5.64 </td>
+ </tr>
+ <tr>
+  <td> <b>Ours<sub>(w/ shift)</sub></b> </td>
+  <th> 4.43 </th>
  </tr>
 </table>
 
