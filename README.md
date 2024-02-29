@@ -189,9 +189,23 @@ If you only want to evaluate, please see the scripts in [src/utils/evaluation_sc
 
 As mentioned in the paper, we evaluate the performance for standard evaluation protocol (_All, Day, and Night_) on the KAIST dataset, as well as the performance by region (_Campus, Road, Downtown_), and provide them as evaluation_script.sh and evaluation_scene.sh, respectively.
 
-If you want to evaluate a result files (.txt format), see:
+If you want to evaluate a experiment result files (.txt format), follow:
 ```
+$ cd src/utils
+python evaluation_script.py \
+    --annFile '../kaist_annotations_test20.json' \
+    --rstFiles '../exps/INSANet/Epoch010_test_det.txt'
 ```
+Note that this step is primarily used to evaluate performance per training epochs (result files saved in src/exps).
+
+If you don't want to bother writing down the names of all those files, follow:
+```
+$ cd src/utils
+python evaluation_script.py \
+    --annFile '../kaist_annotations_test20.json' \
+    --jobsDir '../exps/INSANet'
+```
+Arguments, jobsDir, evaluates all result files in the folder in a sequential.
 
 ## Benchmark
 You can evaluate the result of the model with the scripts and draw all the state-of-the-art methods in a figure.
