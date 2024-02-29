@@ -52,8 +52,8 @@ test.batch_size = 1
 test.eval_batch_size = 1
 
 # train images' mean & standard variation for normalize
-RGB_MEAN, LWIR_MEAN = [0.3465,  0.3219,  0.2842], [0.1598]
-RGB_STD,  LWIR_STD = [0.2358, 0.2265, 0.2274], [0.0813]
+RGB_MEAN, LWIR_MEAN = [0.3465, 0.3219, 0.2842], [0.1598]
+RGB_STD,  LWIR_STD  = [0.2358, 0.2265, 0.2274], [0.0813]
 
 # dataset
 dataset = edict()
