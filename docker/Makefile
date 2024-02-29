@@ -1,4 +1,4 @@
-IMAGE_NAME = INSANet
+IMAGE_NAME = insanet
 IMAGE_TAG = maintainer
 PYTHON_VERSION = 3.7.16
 CONDA_ENV_NAME = insanet
