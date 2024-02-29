@@ -1,4 +1,5 @@
-"""Evaluate performance on multispectral pedestrian detection benchmark
+"""
+Evaluate performance on multispectral pedestrian detection benchmark
 
 This script evalutes multispectral detection performance.
 We adopt [cocoapi](https://github.com/cocodataset/cocoapi)
