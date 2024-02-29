@@ -23,12 +23,12 @@ train.img_set = f"train-all-02.txt"
 train.checkpoint = None
 
 # Set train arguments
-train.batch_size = 8 # batch size
-train.start_epoch = 0  # start at this epoch
-train.epochs = 40  # number of epochs to run
+train.batch_size = 8       # batch size
+train.start_epoch = 0      # start at this epoch
+train.epochs = 40          # number of epochs to run
 
-train.lr = 1e-4   # learning rate
-train.momentum = 0.9  # momentum
+train.lr = 1e-4            # learning rate
+train.momentum = 0.9       # momentum
 train.weight_decay = 5e-4  # weight decay
 
 train.print_freq = 100
@@ -38,7 +38,7 @@ test = edict()
 
 test.result_path = './result'
 
-test.day = "all" # all, day, night (note that day and night phases are evaluated in 'all')
+test.day = "all" # note that day and night phases are evaluated in 'all'
 test.img_set = f"test-{test.day}-20.txt"
 
 test.input_size = [512, 640]
@@ -51,7 +51,7 @@ test.batch_size = 1
 # train_eval.py
 test.eval_batch_size = 1
 
-# train images' mean & std for nomarlize
+# train images' mean & standard variation for normalize
 RGB_MEAN, LWIR_MEAN = [0.3465,  0.3219,  0.2842], [0.1598]
 RGB_STD,  LWIR_STD = [0.2358, 0.2265, 0.2274], [0.0813]
 
