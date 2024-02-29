@@ -32,7 +32,7 @@ RUN curl -o /tmp/miniconda.sh -sSL http://repo.continuum.io/miniconda/Miniconda3
     rm -rf /tmp/miniconda.sh
 
 RUN conda update -y conda && \
-    conda create -n ${CONDA_ENV_NAME} python=${PYTHON_VERSION}
+    conda create -n $CONDA_ENV_NAME python=$PYTHON_VERSION
 
 ENV PATH /usr/local/envs/$CONDA_ENV_NAME/bin:$PATH
 RUN echo "source activate ${CONDA_ENV_NAME}" >> ~/.bashrc
@@ -40,6 +40,6 @@ RUN echo "source activate ${CONDA_ENV_NAME}" >> ~/.bashrc
 SHELL ["/bin/bash", "-c"]
 
 COPY requirements.txt /tmp/requirements.txt
-
 RUN source activate ${CONDA_ENV_NAME} && pip install --no-cache-dir -r /tmp/requirements.txt
+
 RUN source activate ${CONDA_ENV_NAME} && pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
