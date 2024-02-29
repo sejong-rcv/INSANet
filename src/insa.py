@@ -146,7 +146,7 @@ class INSA_Transformer(nn.Module):
         
         
 class Transformer(nn.Module):
-    # Cite: https://github.com/haofeixu/gmflow/blob/main/gmflow/transformer.py
+    # Cite: https://github.com/microsoft/Swin-Transformer/blob/main/models/swin_transformer.py
     # Transformer (Q,K,V)
     def __init__(self,
                  dim=256,
