@@ -29,3 +29,45 @@ Pedestrian detection is a critical task for safety-critical systems, but detecti
 - Python-Torch: 3.7-1.11.0
   
 See [environment.yaml](https://github.com/sejong-rcv/INSANet/blob/main/environment.yaml) for more details
+
+### Installation
+The environment file has all the dependencies that are needed for INSANet.
+
+We offer guides on how to install dependencies via docker and conda.
+
+First, clone the repository:
+#### Git Clone
+```
+git clone https://github.com/sejong-rcv/INSANet.git
+cd INSANet
+```
+
+#### 1. Docker
+- **Prerequisite**
+  - [nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-container-toolkit)
+  - Note that nvidia-cuda:11.3.0 is deprecated. See [issue](https://github.com/NVIDIA/nvidia-docker/issues/1745).
+ ```
+cd docker
+make docker-make
+```
+
+- **Make Container**
+ ```
+nvidia-docker run -it --name insanet -v $PWD:/workspace -p 8888:8888 -e NVIDIA_VISIBLE_DEVICES=all --shm-size=32G insanet:maintainer /bin/bash
+
+```
+
+#### 2. Conda
+- **Prerequisite**
+  - Required dependencies are listed in environment.yaml.
+```
+conda env create -f environment.yml
+conda activate insanet
+```
+
+If GPU support CUDA 11.3,
+```
+conda env create -f environment_cu113.yml
+conda activate insanet
+```
+  
