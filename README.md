@@ -28,4 +28,4 @@ Pedestrian detection is a critical task for safety-critical systems, but detecti
 - GPU: NVIDIA-A100
 - Python-Torch: 3.7-1.11.0
   
-See environment.yaml for more details
+See [environment.yaml](https://github.com/sejong-rcv/INSANet/blob/main/environment.yaml) for more details
