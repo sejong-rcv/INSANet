@@ -70,6 +70,8 @@ conda env create -f environment_cu113.yml
 conda activate insanet
 ```
 
+---
+
 ## Dataset
 The datasets used to train and evaluate model are as follows:
 - [KAIST Multispectral Pedestrian Detection Benchmark](https://github.com/SoonminHwang/rgbt-ped-detection)
@@ -159,6 +161,8 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
       └── inference.py
 ```
 
+---
+
 ## Demo
 Our pre-trained model on the KAIST dataset can be downloaded from [pretrained/download_pretrained.py](https://github.com/sejong-rcv/INSANet/blob/main/pretrained/download_pretrained.py) or [google drive]().
 
@@ -167,6 +171,8 @@ You can infer and evaluate a pre-trained model on the KAIST dataset as follows t
 python pretrained/donwload_pretrained.py
 $ python src/script/inference.sh
 ```
+
+---
 
 ## Train & Inference
 All train and inference scripts can be found in [src/script/train_eval.sh](https://github.com/sejong-rcv/INSANet/blob/main/src/script/train_eval.sh) and [src/script/inference.sh](https://github.com/sejong-rcv/INSANet/blob/main/src/script/inference.sh).
@@ -183,6 +189,8 @@ If you want to identify the number of (multiple) GPUs and THREADs, add 'CUDA_VIS
 ```
 CUDA_VISIBLE_DEVICES=0,1 OMP_NUM_THREADS=1 python src/train_eval.py
 ```
+
+---
 
 ## Evaluation
 If you only want to evaluate, please see the scripts in [src/utils/evaluation_script.sh](https://github.com/sejong-rcv/INSANet/blob/main/src/utils/evaluation_script.sh) and [src/utils/evaluation_scene.sh](https://github.com/sejong-rcv/INSANet/blob/main/src/utils/evaluation_scene.sh).
@@ -207,6 +215,8 @@ python evaluation_script.py \
 ```
 Arguments, jobsDir, evaluates all result files in the folder in a sequential.
 
+---
+
 ## Benchmark
 You can evaluate the result of the model with the scripts and draw all the state-of-the-art methods in a figure.
 
@@ -229,3 +239,31 @@ python evaluation_script.py \
 ```
 
 <p align="center"><img src="evaluation/KAIST_BENCHMARK.jpg"></p>
+
+---
+
+## Acknowledgements
+This paper would not have been possible without some awesome researches: [MLPD](https://github.com/sejong-rcv/MLPD-Multi-Label-Pedestrian-Detection), [Swin Transformer](https://github.com/microsoft/Swin-Transformer), [KAIST](https://github.com/SoonminHwang/rgbt-ped-detection), [LLVIP](https://github.com/bupt-ai-cz/LLVIP). 
+
+We would also like to thank all the authors of our references for their excellent research.
+
+---
+
+## Citation
+If our work is useful in your research, please consider citing our paper:
+```
+@article{lee2024insanet,
+  title={INSANet: INtra-INter spectral attention network for effective feature fusion of multispectral pedestrian detection},
+  author={Lee, Sangin and Kim, Taejoo and Shin, Jeongmin and Kim, Namil and Choi, Yukyung},
+  journal={Sensors},
+  volume={24},
+  number={4},
+  pages={1168},
+  year={2024},
+  publisher={Multidisciplinary Digital Publishing Institute}
+}
+```
+
+
+
+
