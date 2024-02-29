@@ -54,7 +54,6 @@ make docker-make
 - **Make Container**
  ```
 nvidia-docker run -it --name insanet -v $PWD:/workspace -p 8888:8888 -e NVIDIA_VISIBLE_DEVICES=all --shm-size=32G insanet:maintainer /bin/bash
-
 ```
 
 #### 2. Conda
@@ -65,9 +64,87 @@ conda env create -f environment.yml
 conda activate insanet
 ```
 
-If GPU support CUDA 11.3,
+If your environment support CUDA 11.3,
 ```
 conda env create -f environment_cu113.yml
 conda activate insanet
 ```
-  
+
+## Dataset
+The datasets used to train and evaluate model are as follows:
+- [KAIST Multispectral Pedestrian Detection Benchmark](https://github.com/SoonminHwang/rgbt-ped-detection)
+- [LLVIP: A Visible-infrared Paired Dataset for Low-light Vision](https://github.com/bupt-ai-cz/LLVIP)
+
+The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/src/datasets.py) assumes that the dataset is located in the data folder and structured as follows:
+
+- **KAIST**
+  - First, you should download the dataset. we provide the script to download the dataset (please see data/download_kaist).
+  - Train: We use paired annotations provided in [AR-CNN](https://github.com/luzhang16/AR-CNN).
+  - Evaluation:  We use sanitized (improved) annotations provided in [MSDS-RCNN](https://github.com/Li-Chengyang/MSDS-RCNN).
+```
+├── data
+   └── kaist-rgbt
+      ├── annotations_paired
+         ├── set00
+            ├── V000
+               ├── lwir
+                  ├── I00000.txt
+                  ├── ...
+               ├── visible
+                  ├── I00000.txt
+                  ├── ...
+            ├── V001
+               ├── lwir
+                  ├── I00000.txt
+                  ├── ...
+               ├── visible
+                  ├── I00000.txt
+                  ├── ...
+            └── ...
+         ├── ... (set02-set10)
+         └── set11
+            ├── V000
+               ├── lwir
+                  ├── I00019.txt
+                  ├── ...
+               ├── visible
+                  ├── I00019.txt
+                  ├── ...
+      ├── images
+         ├─ The structure is identical to the "annotations_paired", but
+         └─ files are altered from text(.txt) to image(.jpg).
+
+├── src
+   ├── kaist_annotations_test20.json
+   ├── imageSets
+      ├── train-all-02.txt
+      └── test-all-20.txt
+```
+
+- **LLVIP**
+  - First, you should download the dataset. Please see download_dataset.md in [LLVIP](https://github.com/bupt-ai-cz/LLVIP).
+  - A pair of visible and infrared images share the same annotation with the same file name.
+  - The annotations are in VOC format and we evaluate in annotations that have been modified to COCO format.
+```
+├── data
+   └── LLVIP
+      ├── Annotations
+         ├── 010001.xml
+         ├── 010002.xml
+         ├── ...
+         ├── 260535.xml
+         └── 260536.xml
+      ├── infrared
+         ├── train
+            ├── 010001.jpg
+            ├── 010002.jpg
+            ├── ...
+            └── 250423.jpg
+         └── test
+            ├── 190001.jpg
+            ├── 190002.jpg
+            ├── ...
+            └── 260536.jpg
+      └── visible
+         └── The structure is identical to the "infrared".
+```
