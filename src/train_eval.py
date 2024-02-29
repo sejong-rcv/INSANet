@@ -109,7 +109,6 @@ def main():
     exps_dir = os.path.join('exps', args.exp_time + '_' + args.exp_name)
     os.makedirs(exps_dir, exist_ok=True)
     args.exps_dir = exps_dir
-    print(f'exp_name: {args.exp_name}')
 
     # Make logger
     logger = utils.make_logger(args)
