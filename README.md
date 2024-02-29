@@ -77,10 +77,10 @@ The datasets used to train and evaluate model are as follows:
 
 The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/src/datasets.py) assumes that the dataset is located in the data folder and structured as follows:
 
-- **KAIST**
-  - First, you should download the dataset. we provide the script to download the dataset (please see data/download_kaist).
-  - Train: We use paired annotations provided in [AR-CNN](https://github.com/luzhang16/AR-CNN).
-  - Evaluation:  We use sanitized (improved) annotations provided in [MSDS-RCNN](https://github.com/Li-Chengyang/MSDS-RCNN).
+#### KAIST
+- First, you should download the dataset. we provide the script to download the dataset (please see data/download_kaist).
+- Train: We use paired annotations provided in [AR-CNN](https://github.com/luzhang16/AR-CNN).
+- Evaluation:  We use sanitized (improved) annotations provided in [MSDS-RCNN](https://github.com/Li-Chengyang/MSDS-RCNN).
 ```
 ├── data
    └── kaist-rgbt
@@ -121,11 +121,11 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
       └── test-all-20.txt
 ```
 
-- **LLVIP**
-  - First, you should download the dataset. Please see download_dataset.md in [LLVIP](https://github.com/bupt-ai-cz/LLVIP).
-  - A pair of visible and infrared images share the same annotation with the same file name.
-  - The annotations are in VOC format and we evaluate in annotations that have been modified to COCO format.
-  - **We also provide source code for train and evaluate for the LLVIP dataset. Please set the appropriate path.**
+#### LLVIP
+- First, you should download the dataset. Please see download_dataset.md in [LLVIP](https://github.com/bupt-ai-cz/LLVIP).
+- A pair of visible and infrared images share the same annotation with the same file name.
+- The annotations are in VOC format and we evaluate in annotations that have been modified to COCO format.
+- **We also provide source code for train and evaluate for the LLVIP dataset. Please set the appropriate path.**
 ```
 ├── data
    └── LLVIP
@@ -158,3 +158,60 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
       ├── train_eval.py
       └── inference.py
 ```
+
+## Demo
+Our pre-trained model on the KAIST dataset can be downloaded from [pretrained/download_pretrained.py](https://github.com/sejong-rcv/INSANet/blob/main/pretrained/download_pretrained.py) or [google drive]().
+
+You can infer and evaluate a pre-trained model on the KAIST dataset as follows the below.
+```
+python pretrained/donwload_pretrained.py
+$ python src/script/inference.sh
+```
+
+## Train & Inference
+All train and inference scripts can be found in [src/script/train_eval.sh](https://github.com/sejong-rcv/INSANet/blob/main/src/script/train_eval.sh) and [src/script/inference.sh](https://github.com/sejong-rcv/INSANet/blob/main/src/script/inference.sh).
+
+We provide a per-epoch evaluation in the training phase for convenience.
+However, you might see OOM in the early epoch so the per-epoch evaluation is proceed after 10 epochs.
+
+```
+cd src/script
+$ sh train_eval.sh
+```
+
+If you want to identify the number of (multiple) GPUs and THREADs, add 'CUDA_VISIBLE_DEVICES' and 'OMP_NUM_THREADS'(optional).
+```
+CUDA_VISIBLE_DEVICES=0,1 OMP_NUM_THREADS=1 python src/train_eval.py
+```
+
+## Evaluation
+If you only want to evaluate, please see the scripts in [src/utils/evaluation_script.sh](https://github.com/sejong-rcv/INSANet/blob/main/src/utils/evaluation_script.sh) and [src/utils/evaluation_scene.sh](https://github.com/sejong-rcv/INSANet/blob/main/src/utils/evaluation_scene.sh).
+
+As mentioned in the paper, we evaluate the performance for standard evaluation protocol (_All, Day, and Night_) on the KAIST dataset, as well as the performance by region (_Campus, Road, Downtown_), and provide them as evaluation_script.sh and evaluation_scene.sh, respectively.
+
+If you want to evaluate a result files (.txt format), see:
+```
+```
+
+## Benchmark
+You can evaluate the result of the model with the scripts and draw all the state-of-the-art methods in a figure.
+
+The figure represents the log-average miss rate (LAMR), the most popular metric for pedestrian detection tasks.
+
+Annotation files only support a JSON format, whereas result files support a JSON and text format (multiple result files are supported). See the below.
+
+```
+$ cd evaluation
+python evaluation_script.py \
+    --annFile ./KAIST_annotation.json \
+    --rstFile state_of_arts/INSANet_result.txt \
+              state_of_arts/MLPD_result.txt \
+              state_of_arts/MBNet_result.txt \
+              state_of_arts/MSDS-RCNN_result.txt \
+              state_of_arts/CIAN_result.txt \
+    --evalFig KAIST_BENCHMARK.jpg
+
+(optional) $ sh evaluation_script.sh
+```
+
+<p align="center"><img src="evaluation/KAIST_BENCHMARK.jpg"></p>
