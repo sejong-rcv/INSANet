@@ -38,24 +38,10 @@ RUN conda update -y conda && \
 
 ENV PATH /usr/local/envs/$CONDA_ENV_NAME/bin:$PATH
 RUN echo "source activate ${CONDA_ENV_NAME}" >> ~/.bashrc
-RUN echo $PATH
+
+SHELL ["/bin/bash", "-c"]
 
 COPY requirements.txt /tmp/requirements.txt
-RUN source activate ${CONDA_ENV_NAME} && pip install --no-cache-dir -r tmp/requirements.txt
-
-SHELL ["/bin/bash", "-c"]
-
-RUN adduser $USER_NAME -u $UID --quiet --gecos "" --disabled-password && \
-    echo "$USER_NAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USER_NAME && \
-    chmod 0440 /etc/sudoers.d/$USER_NAME
-
-USER $USER_NAME
-
-SHELL ["/bin/bash", "-c"]
-
-RUN echo "source activate ${CONDA_ENV_NAME}" > ~/.bashrc
-
-CMD ["/bin/bash"]
-ENV CONDA_DEFAULT_ENV ${CONDA_ENV_NAME}
+RUN source activate ${CONDA_ENV_NAME} && pip install --no-cache-dir -r /tmp/requirements.txt
 
 RUN source activate ${CONDA_ENV_NAME} && pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
