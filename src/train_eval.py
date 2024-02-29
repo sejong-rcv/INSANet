@@ -21,10 +21,12 @@ from model import INSANet, MultiBoxLoss
 from utils import utils
 from utils.evaluation_script import evaluate
 
+from torchvision.utils import save_image
+
 # Fix random seed for reproduction
 utils.set_seed(seed=9)
 
-# Parser (shell script)
+# Parser
 parser = argparse.ArgumentParser(description='PyTorch INSA Train & Test')
 parser.add_argument('--wandb_enable', default=False, type=bool, help='wandb enabled?')
 parser.add_argument('--exp', type=str, help='set experiments name. see ./exps/')
@@ -43,12 +45,12 @@ def main():
     start_epoch = train_conf.start_epoch
     epochs = train_conf.epochs
     phase = "Multispectral"
-
+    
     if arg.wandb_enable:
         wandb.run.log_code("./", include_fn=lambda path: path.endswith(".py"))
 
-    # Initialize model
     if checkpoint is None:
+        # Initialize model
         model = INSANet(n_classes=args.n_classes)
         # Initialize the optimizer
         biases = list()
@@ -131,15 +133,17 @@ def main():
 
         # Save checkpoint
         # At early training epoch, you might see OOM in validation phase 
-        if epoch >= 5:
-            result_filename = os.path.join(jobs_dir, f'Epoch{epoch:03d}_test_det.txt')
+        if epoch >= 10:
+            utils.save_checkpoint(epoch, model.module, optimizer, train_loss, exps_dir)
+
+            result_filename = os.path.join(exps_dir, f'Epoch{epoch:03d}_test_det.txt')
 
             results = val_epoch(model, test_loader, config.test.input_size, min_score=0.1, epoch=epoch)
             
             save_results(results, result_filename)
             
             evaluate(config.PATH.JSON_GT_FILE, result_filename, phase) 
-
+    
 
 def train_epoch(epoch: int,
                 model: INSANet,
@@ -176,7 +180,7 @@ def train_epoch(epoch: int,
         # Move to default device
         image_vis = image_vis.to(device)
         image_lwir = image_lwir.to(device)
-        
+
         boxes = [box.to(device) for box in boxes]
         labels = [label.to(device) for label in labels]
         
