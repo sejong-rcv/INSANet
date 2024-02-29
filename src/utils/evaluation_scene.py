@@ -1,5 +1,4 @@
-"""
-Evaluate performance on multispectral pedestrian detection benchmark
+"""Evaluate performance on multispectral pedestrian detection benchmark
 
 This script evalutes multispectral detection performance.
 We adopt [cocoapi](https://github.com/cocodataset/cocoapi)
@@ -7,7 +6,6 @@ and apply minor modification for KAISTPed benchmark.
 
 """
 from collections import defaultdict
-from natsort import natsorted
 import argparse
 import copy
 import datetime
@@ -19,7 +17,6 @@ import pdb
 import sys
 import tempfile
 import traceback
-import pathlib
 import matplotlib.pyplot as plt
 
 try:
@@ -31,6 +28,7 @@ except:
 
 font = {'size': 22}
 matplotlib.rc('font', **font)
+
 
 class KAISTPedEval(COCOeval):
 
@@ -569,7 +567,6 @@ def evaluate(test_annotation_file: str, user_submission_file: str, phase_codenam
     kaistEval.params.catIds = [1]
 
     eval_result = {
-        'all': copy.deepcopy(kaistEval),
         'campus': copy.deepcopy(kaistEval),
         'road': copy.deepcopy(kaistEval),
         'downtown': copy.deepcopy(kaistEval),
@@ -578,11 +575,6 @@ def evaluate(test_annotation_file: str, user_submission_file: str, phase_codenam
     _campus = [id_ for id_ in range(0,648)] + [id_ for id_ in range(1455, 1630)]
     _road = [id_ for id_ in range(648, 1054)] + [id_ for id_ in range(1630, 2074)]
     _downtown = [id_ for id_ in range(1054, 1455)] + [id_ for id_ in range(2074, 2252)]
-
-    eval_result['all'].params.imgIds = imgIds
-    eval_result['all'].evaluate(0)
-    eval_result['all'].accumulate()
-    MR_all = eval_result['all'].summarize(0)
 
     eval_result['campus'].params.imgIds = _campus
     eval_result['campus'].evaluate(0)
@@ -622,37 +614,31 @@ def draw_all(eval_results, save_path, filename='figure.jpg'):
         Filename of figure
     """
     fig, axes = plt.subplots(1, 3, figsize=(45, 10))
-    
-    methods = [res['all'].method for res in eval_results]
+
+    methods = [res['campus'].method for res in eval_results]
     colors = [plt.cm.get_cmap('Paired')(ii)[:3] for ii in range(len(eval_results))]
 
-    # eval_results_all = [res['all'].eval for res in eval_results]
-    # KAISTPedEval.draw_figure(axes[0], eval_results_all, methods, colors)
-    # axes[0].set_title('All')
-
-    eval_results_campus = [res['campus'].eval for res in eval_results]
-    KAISTPedEval.draw_figure(axes[0], eval_results_campus, methods, colors)
+    eval_results_all = [res['campus'].eval for res in eval_results]
+    KAISTPedEval.draw_figure(axes[0], eval_results_all, methods, colors)
     axes[0].set_title('Campus')
 
-    eval_results_road = [res['road'].eval for res in eval_results]
-    KAISTPedEval.draw_figure(axes[1], eval_results_road, methods, colors)
+    eval_results_day = [res['road'].eval for res in eval_results]
+    KAISTPedEval.draw_figure(axes[1], eval_results_day, methods, colors)
     axes[1].set_title('Road')
 
-    eval_results_downtown = [res['downtown'].eval for res in eval_results]
-    KAISTPedEval.draw_figure(axes[2], eval_results_downtown, methods, colors)
+    eval_results_night = [res['downtown'].eval for res in eval_results]
+    KAISTPedEval.draw_figure(axes[2], eval_results_night, methods, colors)
     axes[2].set_title('Downtown')
-        
+
     filename += '' if filename.endswith('.jpg') or filename.endswith('.png') else '.jpg'
     plt.savefig(os.path.join(save_path, filename))
 
-    MR_all = [res['all'].summarize(0) * 100 for res in eval_results][0]
     MR_campus = [res['campus'].summarize(0) * 100 for res in eval_results][0]
     MR_road = [res['road'].summarize(0) * 100 for res in eval_results][0]
     MR_downtown = [res['downtown'].summarize(0) * 100 for res in eval_results][0]
-    recall_all = (1 - eval_results[0]['all'].eval['yy'][0][-1]) * 100
     
     txtfile = open(os.path.join(save_path, 'results.txt'), 'a+')
-    txtfile.write(f'\n{methods[0]}: MR_all: {MR_all:.2f}, {methods[0]}: MR_campus: {MR_campus:.2f}, MR_road: {MR_road:.2f}, MR_downtown: {MR_downtown:.2f}, Recall:{recall_all:.2f}')
+    txtfile.write(f'\nMR_campus: {MR_campus:.2f}, MR_road: {MR_road:.2f}, MR_downtown: {MR_downtown:.2f}')
     txtfile.close()
     
 
@@ -673,8 +659,8 @@ if __name__ == "__main__":
     if args.rstFiles is not None:
         for rstFile in args.rstFiles:
             results = [evaluate(args.annFile, rstFile, phase)]
-            # Sort results by MR_all
-            results = sorted(results, key=lambda x: x['all'].summarize(0), reverse=True)
+            # Sort results by MR_campus
+            results = sorted(results, key=lambda x: x['campus'].summarize(0), reverse=True)
             savePath = os.path.join('../results', rstFile.rsplit('/')[-1].split('.')[0])
             if not os.path.isdir(savePath):
                 os.mkdir(savePath)
@@ -684,7 +670,7 @@ if __name__ == "__main__":
         rstFiles = natsorted([f_ for f_ in jobs_files if f_.endswith('.txt') and not f_.startswith('log')])
         for rstFile in rstFiles:
             results = [evaluate(args.annFile, os.path.join(args.jobsDir, rstFile), phase)]
-            results = sorted(results, key=lambda x: x['all'].summarize(0), reverse=True)
+            results = sorted(results, key=lambda x: x['campus'].summarize(0), reverse=True)
             savePath = os.path.join('../results', args.jobsDir.split('/')[-1])
             if not os.path.isdir(savePath):
                 os.mkdir(savePath)
