@@ -164,7 +164,7 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
 ---
 
 ## Demo
-Our pre-trained model on the KAIST dataset can be downloaded from [pretrained/download_pretrained.py](https://github.com/sejong-rcv/INSANet/blob/main/pretrained/download_pretrained.py) or [google drive]().
+Our pre-trained model on the KAIST dataset can be downloaded from [pretrained/download_pretrained.py](https://github.com/sejong-rcv/INSANet/blob/main/pretrained/download_pretrained.py) or [google drive](https://drive.google.com/file/d/1C56Jq1K2TuXFAp9f5UDkSF7Y-FucAG0L/view).
 
 You can infer and evaluate a pre-trained model on the KAIST dataset as follows the below.
 ```
