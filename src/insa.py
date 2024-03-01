@@ -23,9 +23,7 @@ class INSA(nn.Module):
                                  if iter_ % 2 == 1 else False)
             for iter_ in range(n_iter)])
         
-        for param in self.parameters():
-            if param.dim() > 1:
-                nn.init.xavier_uniform_(param)
+        self.param_init()
     
     
     def forward(self, 
@@ -54,11 +52,11 @@ class INSA(nn.Module):
             feat_rt = insa(feat_rt, feat_tr,
                            width=w, height=h,
                            mask_attn=swin_window_mask, n_window=n_window)
-            # Update another spectral features
+            
             feat_tr = torch.cat(feat_rt.chunk(chunks=2, dim=0)[::-1], dim=0)
             
         feat_r, feat_t = feat_rt.chunk(chunks=2, dim=0)
-        # Reshape to origin shape
+        
         feat_r = feat_r.reshape(b, h, w, c).permute(0, 3, 1, 2).contiguous()
         feat_t = feat_t.reshape(b, h, w, c).permute(0, 3, 1, 2).contiguous()
         
@@ -99,6 +97,12 @@ class INSA(nn.Module):
         mask_attn = mask_attn.masked_fill(mask_attn != 0, float(-100.0)).masked_fill(mask_attn == 0, float(0.0))
         
         return mask_attn
+    
+    
+    def param_init(self):
+        for param in self.parameters():
+            if param.dim() > 1:
+                nn.init.xavier_uniform_(param)
     
     
 class INSA_Transformer(nn.Module):
@@ -146,7 +150,7 @@ class INSA_Transformer(nn.Module):
         
         
 class Transformer(nn.Module):
-    # Cite: https://github.com/microsoft/Swin-Transformer/blob/main/models/swin_transformer.py
+    # Cite: https://github.com/haofeixu/gmflow/blob/main/gmflow/transformer.py
     # Transformer (Q,K,V)
     def __init__(self,
                  dim=256,
@@ -236,7 +240,7 @@ class Transformer(nn.Module):
                          width, height,
                          n_window, 
                          mask_attn):
-        # Cite: https://github.com/microsoft/Swin-Transformer/blob/main/models/swin_transformer.py
+        # Cite: https://github.com/microsoft/Swin-Transformer/blob/main/models/swin_transformer.py 
         assert q.dim() == k.dim() == v.dim() == 3
         
         assert width is not None and height is not None
