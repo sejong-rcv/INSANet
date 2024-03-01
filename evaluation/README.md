@@ -2,12 +2,11 @@
 
 Anyone can evaluate and visualize the result via code.
 
-We draw all the results of state-of-the-art methods in the figure and the figure represents the log-average miss-rate (LAMR).
+We draw all the results of state-of-the-art methods in one figure and the figure represents the log-average miss-rate (LAMR).
 
 For annotation file, only json format is supported.
 For result files, json and txt formats are supported. (multiple `--rstFiles` are supported)
 
-_Run Example_
 ```bash
 $ python evaluation_script.py \
     --annFile ./KAIST_annotation.json \
