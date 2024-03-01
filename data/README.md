@@ -1,5 +1,5 @@
 # Get the dataset ready
-We thank to Hwang and authors for providing valuable datasets ([KAIST]()).
+We thank Hwang and Jia, who are the authors for providing valuable datasets.([KAIST](https://soonminhwang.github.io/rgbt-ped-detection/), [LLVIP](https://github.com/bupt-ai-cz/LLVIP/blob/main/download_dataset.md)).
 
 ## KAIST Multispectral Pedestrian Detection Dataset
 Please run the script to download KAIST dataset from one drive (36GB)
