@@ -14,5 +14,5 @@ $ sh download_kaist.sh $PATH_TO_DOWNLOAD
 Please run the python file (.py) to download LLVIP dataset from google drive (4GB)
 ```
 python download_llvip.py --path=PATH_TO_DOWNLOAD
-(e.g.) python download_llvip.py --path='./' # Download to cuurent pat, INSANet/data/
+(e.g.) python download_llvip.py --path='./'
 ```
