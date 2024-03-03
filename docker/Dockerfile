@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y -qq --no-install-recommends \
     libglib2.0-0 \
     libjpeg-dev \
     libpng-dev \
+    ffmpeg    \
     libsm6 \
     libxext6 \
     libxrender-dev \
@@ -28,7 +29,7 @@ RUN apt-get update && apt-get install -y -qq --no-install-recommends \
     unzip \
     tmux \
     && rm -rf /var/lib/apt/lists/*
-
+    
 RUN curl -o /tmp/miniconda.sh -sSL http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash /tmp/miniconda.sh -bfp /usr/local && \
     rm -rf /tmp/miniconda.sh
