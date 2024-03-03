@@ -11,3 +11,4 @@ tqdm==4.65.0
 tensorboard
 gdown
 wandb
+natsort
