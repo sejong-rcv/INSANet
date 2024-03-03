@@ -169,7 +169,7 @@ Our pre-trained model on the KAIST dataset can be downloaded from [pretrained/do
 You can infer and evaluate a pre-trained model on the KAIST dataset as follows the below.
 ```
 python pretrained/donwload_pretrained.py
-$ python src/script/inference.sh
+python src/script/inference.sh
 ```
 
 ---
@@ -182,7 +182,7 @@ However, you might see OOM in the early epoch so the per-epoch evaluation is pro
 
 ```
 cd src/script
-$ sh train_eval.sh
+sh train_eval.sh
 ```
 
 If you want to identify the number of (multiple) GPUs and THREADs, add 'CUDA_VISIBLE_DEVICES' and 'OMP_NUM_THREADS'(optional).
@@ -199,7 +199,7 @@ As mentioned in the paper, we evaluate the performance for standard evaluation p
 
 If you want to evaluate a experiment result files (.txt format), follow:
 ```
-$ cd src/utils
+cd src/utils
 python evaluation_script.py \
     --annFile '../kaist_annotations_test20.json' \
     --rstFiles '../exps/INSANet/Epoch010_test_det.txt'
@@ -208,7 +208,7 @@ Note that this step is primarily used to evaluate performance per training epoch
 
 If you don't want to bother writing down the names of all those files, follow:
 ```
-$ cd src/utils
+cd src/utils
 python evaluation_script.py \
     --annFile '../kaist_annotations_test20.json' \
     --jobsDir '../exps/INSANet'
@@ -225,7 +225,7 @@ The figure represents the log-average miss rate (LAMR), the most popular metric 
 Annotation files only support a JSON format, whereas result files support a JSON and text format (multiple result files are supported). See the below.
 
 ```
-$ cd evaluation
+cd evaluation
 python evaluation_script.py \
     --annFile ./KAIST_annotation.json \
     --rstFile state_of_arts/INSANet_result.txt \
