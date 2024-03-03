@@ -169,7 +169,8 @@ Our pre-trained model on the KAIST dataset can be downloaded from [pretrained/do
 
 You can infer and evaluate a pre-trained model on the KAIST dataset as follows the below.
 ```
-python pretrained/download_pretrained.py 
+python pretrained/download_pretrained.py
+mv pretrained.pth.tar pretrained
 sh src/script/inference.sh
 ```
 
