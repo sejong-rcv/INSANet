@@ -53,6 +53,7 @@ make docker-make
 
 - **Make Container**
  ```
+cd ..
 nvidia-docker run -it --name insanet -v $PWD:/workspace -p 8888:8888 -e NVIDIA_VISIBLE_DEVICES=all --shm-size=32G insanet:maintainer /bin/bash
 ```
 
@@ -168,8 +169,8 @@ Our pre-trained model on the KAIST dataset can be downloaded from [pretrained/do
 
 You can infer and evaluate a pre-trained model on the KAIST dataset as follows the below.
 ```
-python pretrained/donwload_pretrained.py
-python src/script/inference.sh
+python pretrained/download_pretrained.py 
+sh src/script/inference.sh
 ```
 
 ---
