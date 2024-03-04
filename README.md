@@ -76,7 +76,6 @@ conda activate insanet
 ## Dataset
 The datasets used to train and evaluate model are as follows:
 - [KAIST Multispectral Pedestrian Detection Benchmark](https://github.com/SoonminHwang/rgbt-ped-detection)
-- [LLVIP: A Visible-infrared Paired Dataset for Low-light Vision](https://github.com/bupt-ai-cz/LLVIP)
 
 The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/src/datasets.py) assumes that the dataset is located in the data folder and structured as follows:
 
@@ -122,44 +121,6 @@ The dataloader in [datasets.py](https://github.com/sejong-rcv/INSANet/blob/main/
    ├── imageSets
       ├── train-all-02.txt # List of file names for train.
       └── test-all-20.txt 
-```
-
-### LLVIP
-- First, you should download the dataset. Please see download_dataset.md in [LLVIP](https://github.com/bupt-ai-cz/LLVIP).
-- A pair of visible and infrared images share the same annotation with the same file name.
-- The annotations are in VOC format and we evaluate in annotations that have been modified to COCO format.
-- **We also provide source code for train and evaluate for the LLVIP dataset. Please set the appropriate path.**
-```
-├── data
-   └── LLVIP
-      ├── Annotations
-         ├── 010001.xml
-         ├── 010002.xml
-         ├── ...
-         ├── 260535.xml
-         └── 260536.xml
-      ├── infrared
-         ├── train
-            ├── 010001.jpg
-            ├── 010002.jpg
-            ├── ...
-            └── 250423.jpg
-         └── test
-            ├── 190001.jpg
-            ├── 190002.jpg
-            ├── ...
-            └── 260536.jpg
-      └── visible
-         └─ The structure is identical to the "infrared".
-├── llvip
-   ├── LLVIP_annotations.json # COCO format annotation for evaluation.
-   ├── LLVIP_train_all.txt    # Same as KAIST,
-   ├── LLVIP_test_all.txt     # We classify and provide text files for train and test.
-   └── src
-      ├── config.py
-      ├── datasets.py
-      ├── train_eval.py
-      └── inference.py
 ```
 
 ---
@@ -377,65 +338,11 @@ Note that &dagger; is the re-implemented performance with the proposed fusion me
   <th> 6.72 </th>
  </tr>
 </table>
-  
-### LLVIP
-<table>
- <tr>
-  <th> Method </th>
-  <th> Spectral </th>
-  <th> Miss-Rate (%) </th>
- </tr>
- <tr>
-  <td rowspan="2"> Yolov3 </td>
-  <td align="center"> visible </td>
-  <td align="center"> 37.70 </td>
- </tr>
- <tr>
-  <td align="center"> infrared </td>
-  <td align="center"> 19.73 </td>
- </tr>
- <tr>
-  <td rowspan="2"> Yolov5 </td>
-  <td align="center"> visible </td>
-  <td align="center"> 22.59 </td>
- </tr>
- <tr>
-  <td align="center"> infrared </td>
-  <td align="center"> 10.66 </td>
- </tr>
- <tr>
-  <td rowspan="2"> FBCNet </td>
-  <td align="center"> visible </td>
-  <td align="center"> 19.78 </td>
- </tr>
- <tr>
-  <td align="center"> infrared </td>
-  <td align="center"> 7.98 </td>
- </tr>
- <tr>
-  <td> MLPD </td>
-  <td rowspan="2" align="center"> multi </td>
-  <td align="center"> 6.01 </td>
- </tr>
- <tr>
-  <td> CFT </td>
-  <td align="center"> 5.40 </td>
- </tr>
- <tr>
-  <td> <b>Ours<sub>(w/o shift)</sub></b> </td>
-  <td rowspan="2" align="center"> multi </td>
-  <td align="center"> 5.64 </td>
- </tr>
- <tr>
-  <td> <b>Ours<sub>(w/ shift)</sub></b> </td>
-  <th> 4.43 </th>
- </tr>
-</table>
 
 ---
 
 ## Acknowledgements
-This paper would not have been possible without some awesome researches: [MLPD](https://github.com/sejong-rcv/MLPD-Multi-Label-Pedestrian-Detection), [Swin Transformer](https://github.com/microsoft/Swin-Transformer), [KAIST](https://github.com/SoonminHwang/rgbt-ped-detection), [LLVIP](https://github.com/bupt-ai-cz/LLVIP). 
+This paper would not have been possible without some awesome researches: [MLPD](https://github.com/sejong-rcv/MLPD-Multi-Label-Pedestrian-Detection), [Swin Transformer](https://github.com/microsoft/Swin-Transformer), [KAIST](https://github.com/SoonminHwang/rgbt-ped-detection). 
 
 We would also like to thank all the authors of our references for their excellent research.
 
