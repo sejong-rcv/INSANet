@@ -46,12 +46,14 @@ cd INSANet
 - **Prerequisite**
   - [nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-container-toolkit)
   - Note that nvidia-cuda:11.3.0 is deprecated. See [issue](https://github.com/NVIDIA/nvidia-docker/issues/1745).
+
+ - **Build Image & Make Container**
  ```
 cd docker
 make docker-make
 ```
 
-- **Make Container**
+- **Run Container**
  ```
 cd ..
 nvidia-docker run -it --name insanet -v $PWD:/workspace -p 8888:8888 -e NVIDIA_VISIBLE_DEVICES=all --shm-size=32G insanet:maintainer /bin/bash
